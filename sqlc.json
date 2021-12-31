@@ -1,0 +1,12 @@
+{
+    "version": "1",
+    "packages": [
+      {
+        "schema": "./internal/storage/schema",
+        "queries": "./internal/storage/queries",
+        "path": "./internal/storage",
+        "emit_prepared_queries": false,
+        "emit_json_tags": true
+      }
+    ]
+  }

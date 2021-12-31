@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package enemy;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/larwef/rpi-docker-test/pkg/enemy";
+
+// Service for keeping track of your enemies and giving them scores.
+service EnemyService {
+    rpc AddEnemy(AddEnemyRequest) returns (AddEnemyResponse) {}
+    rpc GetEnemy(GetEnemyRequest) returns (GetEnemyResponse) {}
+    rpc UpdateEnemy(UpdateEnemyRequest) returns (UpdateEnemyResponse) {}
+    rpc ListEnemies(ListEnemiesRequest) returns (ListEnemiesResponse) {}
+}
+
+message Enemy {
+    string id = 1;
+    string name = 2;
+    string email = 3;
+    float rating = 4;
+    google.protobuf.Timestamp lastUpdated = 5;
+}
+
+message AddEnemyRequest {
+    string name = 1;
+    string email = 2;
+    float rating = 3;
+}
+
+message AddEnemyResponse {
+    Enemy enemy = 1; 
+}
+
+message GetEnemyRequest {
+    string id = 1;
+}
+
+message GetEnemyResponse {
+    Enemy enemy = 1;
+}
+
+message UpdateEnemyRequest {
+    string id = 1;
+    string name = 2;
+    string email = 3;
+    float rating = 4;
+}
+
+message UpdateEnemyResponse {
+    Enemy enemy = 1;
+}
+
+message ListEnemiesRequest {}
+
+message ListEnemiesResponse {
+    repeated Enemy enemies = 1;
+}

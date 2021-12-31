@@ -26,6 +26,7 @@ build: build-app docker-build
 build-app:
 	GOOS=linux go build -ldflags "-X main.version=$(BUILD_VERSION)" -o $(TARGET)/$(APP).bin cmd/$(APP)/main.go
 
+.PHONY: test
 test:
 	go test ./...
 
@@ -49,3 +50,7 @@ compose-up:
 
 compose-down:
 	IMAGE=$(REPOSITORY)/$(APP):$(BUILD_VERSION) docker-compose -f deployments/docker-compose/docker-compose.yml down
+
+# ------------------------------------ SQL -------------------------------------
+sqlc:
+	sqlc generate 
