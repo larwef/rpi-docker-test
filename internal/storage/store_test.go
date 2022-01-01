@@ -129,7 +129,7 @@ func TestEnemyStore_ListEnemy(t *testing.T) {
 	_, err = db.Exec(q, "enemy5", "Enemy Five", "enemy5@bar.com", 5.5, time.Date(2021, time.December, 5, 15, 59, 5, 0, time.UTC))
 	assert.NoError(t, err)
 
-	res, err := es.ListEnemy(context.Background(), &enemy.ListEnemiesRequest{})
+	res, err := es.ListEnemies(context.Background(), &enemy.ListEnemiesRequest{})
 	assert.NoError(t, err)
 	gotestAssert.DeepEqual(t, &enemy.ListEnemiesResponse{
 		Enemies: []*enemy.Enemy{

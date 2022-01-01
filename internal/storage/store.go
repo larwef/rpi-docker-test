@@ -91,7 +91,7 @@ func (e *EnemyStore) UpdateEnemy(ctx context.Context, req *enemy.UpdateEnemyRequ
 	}, nil
 }
 
-func (e *EnemyStore) ListEnemy(ctx context.Context, req *enemy.ListEnemiesRequest) (*enemy.ListEnemiesResponse, error) {
+func (e *EnemyStore) ListEnemies(ctx context.Context, req *enemy.ListEnemiesRequest) (*enemy.ListEnemiesResponse, error) {
 	enemies, err := e.queries.ListEnemies(ctx)
 	if err != nil {
 		return nil, err
