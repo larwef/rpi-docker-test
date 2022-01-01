@@ -1,4 +1,4 @@
-FROM alpine:3.13 as base
+FROM alpine:3.14 as base
 RUN apk update && apk add ca-certificates && update-ca-certificates && rm -rf /var/cache/apk/*
 
 FROM scratch as final

@@ -12,9 +12,13 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
+const (
+	serviceURL = "10.0.0.18:8080"
+)
+
 func main() {
 	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
-	conn, err := grpc.Dial(":8080", opts...)
+	conn, err := grpc.Dial(serviceURL, opts...)
 	if err != nil {
 		log.Fatalf("failed to dial: %v", err)
 	}
@@ -22,15 +26,15 @@ func main() {
 
 	client := enemy.NewEnemyServiceClient(conn)
 
-	for i := 0; i < 10; i++ {
-		addEnemy(client, &enemy.AddEnemyRequest{
-			Name:   fmt.Sprintf("Enemy %d", i),
-			Email:  fmt.Sprintf("enemy%d@bar.com", i),
-			Rating: float32(i + 1),
-		})
-	}
+	// for i := 0; i < 10; i++ {
+	// 	addEnemy(client, &enemy.AddEnemyRequest{
+	// 		Name:   fmt.Sprintf("Enemy %d", i),
+	// 		Email:  fmt.Sprintf("enemy%d@bar.com", i),
+	// 		Rating: float32(i + 1),
+	// 	})
+	// }
 
-	// listEnemies(client)
+	listEnemies(client)
 }
 
 func addEnemy(client enemy.EnemyServiceClient, req *enemy.AddEnemyRequest) {

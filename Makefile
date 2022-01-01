@@ -24,7 +24,7 @@ proto: $(patsubst %.proto, %.pb.go, $(PROTO_SRC))
 build: build-app docker-build
 
 build-app:
-	GOOS=linux go build -ldflags "-X main.version=$(BUILD_VERSION)" -o $(TARGET)/$(APP).bin cmd/$(APP)/main.go
+	GOOS=linux GOARCH=arm GOARM=7 go build -ldflags "-X main.version=$(BUILD_VERSION)" -o $(TARGET)/$(APP).bin cmd/$(APP)/main.go
 
 .PHONY: test
 test:

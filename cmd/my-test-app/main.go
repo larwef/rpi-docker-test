@@ -55,7 +55,7 @@ func realMain(ctx context.Context) error {
 
 	// Make sure database is ready before trying to initialize storage, or else
 	// it will fail.
-	if err := PingRetry(ctx, db, 2*time.Second, 15*time.Second); err != nil {
+	if err := PingRetry(ctx, db, 5*time.Second, 60*time.Second); err != nil {
 		return err
 	}
 	store, err := storage.NewEnemyStore(db)
@@ -94,6 +94,8 @@ func PingRetry(ctx context.Context, db *sql.DB, pingInterval, timeout time.Durat
 			log.Printf("connecting to db failed: %v. Retrying in %s", err, pingInterval)
 		}
 		select {
+		case <-ctx.Done():
+			return ctx.Err()
 		case <-timeoutExceeded:
 			return fmt.Errorf("db connection timed out after %s", timeout)
 		case <-ticker.C:
